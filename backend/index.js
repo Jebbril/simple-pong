@@ -97,7 +97,6 @@ io.on('connection', (socket) => {
 		// 	}
 		// }
 		if (room) {
-			console.log(data.y);
 			room.players[data.playerNo - 1].y = data.y;
 			io.to(room.id).emit('updateGame', room);
 		}

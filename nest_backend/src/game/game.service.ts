@@ -51,6 +51,29 @@ export class GameService {
 		}
     }
 
+    leaveGame(client: Socket, server: Server) {
+        let room = this.rooms.find(room => room.players.some(player => player.socketId === client.id));
+        if (room) {
+            if (room.players.length === 1) {
+                this.rooms = this.rooms.filter(r => r.id !== room.id);
+            } else if (room.players.length === 2) {
+                if (room.players[0].socketId === client.id) {
+                    room.winner = 2;
+                    room.players[1].score = 5;
+                    server.to(room.id).emit('updateGame', room);
+                    this.rooms = this.rooms.filter(r => r.id !== room.id);
+                    server.to(room.id).emit('endGame', room);
+                } else {
+                    room.winner = 1;
+                    room.players[0].score = 5;
+                    server.to(room.id).emit('updateGame', room);
+                    this.rooms = this.rooms.filter(r => r.id !== room.id);
+                    server.to(room.id).emit('endGame', room);
+                }
+            }
+        }
+    }
+
 }
 
 function collision (b: Ball, p: Player) {

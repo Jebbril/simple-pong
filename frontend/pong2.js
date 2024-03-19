@@ -21,7 +21,7 @@ class Ball {
 }
 
 const socket = io("http://localhost:3000/game", {
-	transports: ['websocket']
+	// transports: ['websocket']
 });
 
 let startBtn = document.getElementById('startBtn');
@@ -146,11 +146,13 @@ socket.on("endGame", (room) => {
 	canvas.removeEventListener("mousemove", movePaddle);
 
 	socket.emit("leave", roomID);
+	socket.disconnect();
+	socket.connect();
 
 	setTimeout(() => {
 		drawRect(0, 0, canvas.width, canvas.height, "black");
 		startBtn.style.display = 'block';
-	}, 2000);
+	}, 5000);
 });
 
 // draw net

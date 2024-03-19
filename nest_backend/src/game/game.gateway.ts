@@ -22,11 +22,12 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect{
 		this.GameService.movePaddle(client, data, this.server);
 	}
 
-	handleConnection(client: Socket): any {
+	handleConnection(@ConnectedSocket() client: Socket, ...args: any[]): any {
 		console.log(client.id + ' connected');
 	}
 
-	handleDisconnect(client: Socket): any {
+	handleDisconnect(@ConnectedSocket() client: Socket): any {
+		this.GameService.leaveGame(client, this.server);
 		console.log(client.id + ' disconnected');
 	}
 }

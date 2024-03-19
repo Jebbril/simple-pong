@@ -55,7 +55,7 @@ io.on('connection', (socket) => {
 				io.to(room.id).emit('startedGame', room);
 
 				startGame(room);
-			}, 3000);
+			}, 5000);
 		} else {
 			room = {
 				id: rooms.length + 1,

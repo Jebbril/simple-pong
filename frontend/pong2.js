@@ -109,23 +109,23 @@ socket.on("startedGame", (room) => {
 
 	canvas.addEventListener("mousemove", movePaddle);
 
-	function movePaddle(evt) {
-		let rect = canvas.getBoundingClientRect();
-
-		if (socket.connected) {
-			let ply = evt.clientY - rect.top - 200/2;
-			socket.emit("move", {
-				roomID: roomID,
-				playerNo: playerNo,
-				y: ply,
-			});
-		}
-
-	}
-
-
+	
+	
+	
 	render();
 });
+function movePaddle(evt) {
+	let rect = canvas.getBoundingClientRect();
+
+	if (socket.connected) {
+		let ply = evt.clientY - rect.top - 200/2;
+		socket.emit("move", {
+			roomID: roomID,
+			playerNo: playerNo,
+			y: ply,
+		});
+	}
+}
 
 socket.on("updateGame", (room) => {
 	player1.y = room.players[0].y;
@@ -143,6 +143,7 @@ socket.on("updateGame", (room) => {
 socket.on("endGame", (room) => {
 	isGamestarted = false;
 	message.innerText = `${room.winner === playerNo ? "You win !" : "You lose !"}`;
+	canvas.removeEventListener("mousemove", movePaddle);
 
 	socket.emit("leave", roomID);
 

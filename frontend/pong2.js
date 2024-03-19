@@ -20,7 +20,7 @@ class Ball {
 	}
 }
 
-const socket = io("http://localhost:3000", {
+const socket = io("http://localhost:3000/game", {
 	transports: ['websocket']
 });
 

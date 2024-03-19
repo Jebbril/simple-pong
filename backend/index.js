@@ -86,16 +86,6 @@ io.on('connection', (socket) => {
 	socket.on("move", (data) => {
 		let room = rooms.find(room => room.id === data.roomID);
 
-		// if (room) {
-		// 	if (data.direction === 'up') {
-		// 		if (room.players[data.playerNo - 1].y > 0)
-		// 			room.players[data.playerNo - 1].y -= 35;
-		// 	}
-		// 	else if (data.direction === 'down') {
-		// 		if (room.players[data.playerNo - 1].y < CANVAS_HEIGHT - PLAYER_HEIGHT)
-		// 		room.players[data.playerNo - 1].y += 35;
-		// 	}
-		// }
 		if (room) {
 			room.players[data.playerNo - 1].y = data.y;
 			io.to(room.id).emit('updateGame', room);

@@ -8,6 +8,8 @@ export default function Home() {
 
 	const [choice, setChoice] = useState("white");
 	const router = useRouter();
+	
+	
   return (
 		<main>
 			<div className=" ml-20 mr-5 mt-5">
@@ -37,7 +39,7 @@ export default function Home() {
 
 				<div className="flex space-x-20 flex-wrap items-center justify-center h-[500px] flex-grow basis-[400px] m-5 p-10 bg-gradient-to-tr from-[var(--blue-color)] to-[var(--mint-color)] rounded-md">
 						<div className="relative flex items-center cursor-pointer justify-center text-2xl py-10 px-16  font-bold text-white border-4 rounded-md border-white"  
-						onClick={() => router.push(`/game/1?choice=${choice}`)}
+						onClick={() =>  router.push(`/game/1?choice=${choice}`)}
 						>Join Queue</div>
 					{/* <QueueButton /> */}
 				</div>

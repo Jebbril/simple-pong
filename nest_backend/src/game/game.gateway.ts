@@ -14,6 +14,7 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect{
 
 	@SubscribeMessage('join')
 	handleJoin(@ConnectedSocket() client: Socket, @MessageBody() data: any): any {
+		console.log('join ' + client.id);
 		this.GameService.joinGame(client, data, this.server);
 	}
 

@@ -26,9 +26,11 @@ export class GameService {
 			// add player to room
 			room.players.push(new Player(client.id, 2, 0, CANVAS_WIDTH - 20 - PADDLE_WIDTH, CANVAS_HEIGHT/2 - 100/2));
 
-			server.to(room.id).emit('startingGame');
+			server.to(room.id).emit('startingGame', room.id);
 
 			setTimeout(() => {
+				server.to(room.players[0].socketId).emit('playerNo', 1);
+				server.to(room.players[1].socketId).emit('playerNo', 2);
 				server.to(room.id).emit('startedGame', room);
 
 				startGame(room, this.rooms, server);

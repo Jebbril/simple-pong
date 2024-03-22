@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gameSocket from "../socket";
 import { useRouter } from "next/navigation";
 
@@ -39,6 +39,7 @@ class Ball {
 const Pong = props => {
   const ref = useRef(null);
 	const router = useRouter();
+	const [winner, setWinner] = useState("");
 
   useEffect(() => {
 
@@ -71,6 +72,7 @@ const Pong = props => {
 		context.fillRect(0, 0, canvas.width, canvas.height);
 
 		gameSocket.on("startedGame", (room) => {
+			
 			roomID = room.id;
 			player1 = new Player(room.players[0].x, room.players[0].y, 20, 200, secondaryColor);
 			player2 = new Player(room.players[1].x, room.players[1].y, 20, 200, secondaryColor);
@@ -116,11 +118,12 @@ const Pong = props => {
 		gameSocket.on("endGame", (room) => {
 			
 			// message.innerText = `${room.winner === playerNo ? "You win !" : "You lose !"}`;
+			setWinner(room.winner === playerNo ? "You win !" : "You lose !");
 			canvas.removeEventListener("mousemove", movePaddle);
 		
 			gameSocket.emit("leave", roomID);
-			gameSocket.disconnect();
-			gameSocket.connect();
+			// gameSocket.disconnect();
+			// gameSocket.connect();
 		
 			setTimeout(() => {
 				drawRect(0, 0, canvas.width, canvas.height, mainColor);
@@ -190,7 +193,17 @@ const Pong = props => {
   }, [gameSocket]);
 
 
-  return <canvas ref={ref} {...props} />;
+  return(
+		<>
+			<div className="flex justify-between">
+				<p className="text-lg text-[var(third-color)] mb-4">Player 1</p>
+				<p className="text-lg text-[var(third-color)] mb-4">{winner}</p>
+				<p className="text-lg text-[var(third-color)] mb-4">Player 2</p>
+			</div>
+
+			<canvas ref={ref} {...props} />
+		</>
+	) 
 }
 
 export default Pong;

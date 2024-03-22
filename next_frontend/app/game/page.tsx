@@ -1,14 +1,13 @@
 'use client'
 
 import { useState } from "react";
-import QueueButton from "@/components/QueueButton";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import JoinButton from "./JoinButton";
 
 export default function Home() {
 
-	const [choice, setChoice] = useState("white");
+	const [choice, setChoice] = useState("black");
 	const router = useRouter();
 	
 	
@@ -25,14 +24,14 @@ export default function Home() {
 					<div className={`flex xl:flex-row flex-col h-[500px] items-center justify-around flex-grow basis-[400px] m-5 p-10 bg-gradient-to-tr from-[var(--blue-color)] to-[var(--mint-color)]  rounded-md`}>
 						<div
 							onClick={() => setChoice("black")}
-							className={`${choice === 'black' ? "ring-4 ring-red-500":""} rounded-lg`}
+							className={`${choice === 'black' ? "ring-4 ring-white":""} rounded-lg`}
 							>
 							<Image src="/black.png" width={0} height={0} sizes="width:100vw height:100vh" alt="image" className="w-[350px] h-auto rounded-lg cursor-pointer"/>
 						</div>
 						<div
 							onClick={() => setChoice("white")}
 
-							className={`${choice === 'white' ? "ring-4 ring-red-500":""} rounded-lg`}
+							className={`${choice === 'white' ? "ring-4 ring-black":""} rounded-lg`}
 						>
 							<Image src="/white.png" width={0} height={0} sizes="width:100vw height:100vh" alt="image" className="w-[350px] h-auto rounded-lg cursor-pointer"/>
 						</div>
@@ -40,11 +39,7 @@ export default function Home() {
 				</div>
 
 				<div className="flex space-x-20 flex-wrap items-center justify-center h-[500px] flex-grow basis-[400px] m-5 p-10 bg-gradient-to-tr from-[var(--blue-color)] to-[var(--mint-color)] rounded-md">
-						{/* <div className="relative flex items-center cursor-pointer justify-center text-2xl py-10 px-16  font-bold text-white border-4 rounded-md border-white"  
-						onClick={() =>  router.push(`/game/1?choice=${choice}`)}
-						>Join Queue</div> */}
 						<JoinButton className="relative flex items-center cursor-pointer justify-center text-2xl py-10 px-16  font-bold text-white border-4 rounded-md border-white" choice={choice}  />
-					{/* <QueueButton /> */}
 				</div>
 
 			</div>

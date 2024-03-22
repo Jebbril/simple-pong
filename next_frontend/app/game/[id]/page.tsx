@@ -13,8 +13,9 @@ export default function Game() {
       <div className="flex  items-center justify-center h-full">
         <div className="flex flex-col gap-4">
         	<div className="flex justify-between">
-            <p>asdasdasda</p>
-            <p>asdasdasda</p>
+            {/* <p className="text-lg text-[var(third-color)] mb-4">asdasdasda</p>
+            <p className="text-lg text-[var(third-color)] mb-4">asdasdasda</p>
+            <p className="text-lg text-[var(third-color)] mb-4">asdasdasda</p> */}
           </div>
           <Pong width={1200} height={700} choice={choice} />
         </div>

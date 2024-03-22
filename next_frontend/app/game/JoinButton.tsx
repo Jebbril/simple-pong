@@ -6,9 +6,9 @@ import { useState } from "react";
 
 const JoinButton = (props) => {
 	const router = useRouter();
-	const [joinText, setJoinText] = useState("Join Queue");
+	const [joinText, setJoinText] = useState("Join a Game");
 
-	let playerNo = 0;
+	// let playerNo = 0;
 	let roomId = "";
 
 	const joinGame = () => {
@@ -16,9 +16,9 @@ const JoinButton = (props) => {
 
 		setJoinText("Waiting for another player to join ...");
 
-		gameSocket.on("playerNo", (data) => {
-			playerNo = data;
-		});
+		// gameSocket.on("playerNo", (data) => {
+		// 	playerNo = data;
+		// });
 
 		gameSocket.on("startingGame", (data) => {
 			roomId = data;

@@ -21,7 +21,7 @@ export class GameService {
 
         if (room) {
 			client.join(room.id);
-			client.emit('playerNo', 2);
+			// client.emit('playerNo', 2);
 
 			// add player to room
 			room.players.push(new Player(client.id, 2, 0, CANVAS_WIDTH - 20 - PADDLE_WIDTH, CANVAS_HEIGHT/2 - 100/2));
@@ -40,7 +40,7 @@ export class GameService {
             room.players.push(new Player(client.id, 1, 0, 20, CANVAS_HEIGHT/2 - 100/2));
             this.rooms.push(room);
             client.join(room.id);
-            client.emit('playerNo', 1);
+            // client.emit('playerNo', 1);
 		}
     }
 

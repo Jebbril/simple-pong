@@ -40,3 +40,8 @@ body {
     text-wrap: balance;
   }
 } */
+
+.canvas-resize {
+	width: 100%;
+	object-fit: contain;
+}

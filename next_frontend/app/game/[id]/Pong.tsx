@@ -93,7 +93,7 @@ const Pong = props => {
 			let rect = canvas.getBoundingClientRect();
 
 			if (gameSocket.connected) {
-				let ply = e.clientY - rect.top - 200/2;
+				let ply = e.offsetY * canvas.height / canvas.clientHeight - 200/2;
 				gameSocket.emit("move", {
 					roomID: roomID,
 					playerNo: playerNo,

@@ -31,10 +31,15 @@ export class GameService {
 			setTimeout(() => {
 				server.to(room.players[0].socketId).emit('playerNo', 1);
 				server.to(room.players[1].socketId).emit('playerNo', 2);
+			}, 500);
+
+			setTimeout(() => {
+				// server.to(room.players[0].socketId).emit('playerNo', 1);
+				// server.to(room.players[1].socketId).emit('playerNo', 2);
 				server.to(room.id).emit('startedGame', room);
 
 				startGame(room, this.rooms, server);
-			}, 5000);
+			}, 3000);
 		} else {
             room = new Room(new Ball(CANVAS_WIDTH/2, CANVAS_HEIGHT/2, 14, 10, 10, 10), 0);
             room.players.push(new Player(client.id, 1, 0, 20, CANVAS_HEIGHT/2 - 100/2));
@@ -62,12 +67,14 @@ export class GameService {
                 if (room.players[0].socketId === client.id) {
                     room.winner = 2;
                     room.players[1].score = 5;
+										room.players[0].score = 0;
                     server.to(room.id).emit('updateGame', room);
                     this.rooms = this.rooms.filter(r => r.id !== room.id);
                     server.to(room.id).emit('endGame', room);
-                } else {
+                } else if (room.players[1].socketId === client.id){
                     room.winner = 1;
                     room.players[0].score = 5;
+										room.players[1].score = 0;
                     server.to(room.id).emit('updateGame', room);
                     this.rooms = this.rooms.filter(r => r.id !== room.id);
                     server.to(room.id).emit('endGame', room);

@@ -23,6 +23,11 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect{
 		this.GameService.movePaddle(client, data, this.server);
 	}
 
+	@SubscribeMessage('leave')
+	handleLeave(@ConnectedSocket() client: Socket, @MessageBody() data: any): any {
+		this.GameService.leaveGame(client, this.server);
+	}
+
 	handleConnection(@ConnectedSocket() client: Socket, ...args: any[]): any {
 		console.log(client.id + ' connected');
 	}

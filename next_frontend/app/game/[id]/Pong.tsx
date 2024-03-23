@@ -121,7 +121,7 @@ const Pong = props => {
 			setWinner(room.winner === playerNo ? "You win !" : "You lose !");
 			canvas.removeEventListener("mousemove", movePaddle);
 		
-			gameSocket.emit("leave", roomID);
+			// gameSocket.emit("leave", roomID);
 			// gameSocket.disconnect();
 			// gameSocket.connect();
 		
@@ -129,7 +129,7 @@ const Pong = props => {
 				drawRect(0, 0, canvas.width, canvas.height, mainColor);
 				router.push('/game');
 
-			}, 5000);
+			}, 2000);
 		});
 
 		function drawNet() {
@@ -185,9 +185,24 @@ const Pong = props => {
 			drawCircle(ball.x, ball.y, ball.radius, ball.color);
 		}
 
+		setTimeout(() => {
+			
+			if (playerNo === 0) {
+				router.push('/game');
+			}
+		}, 500);
+
+
+
 		return () => {
-			gameSocket.disconnect();
-			gameSocket.connect();
+			// gameSocket.disconnect();
+			// gameSocket.connect();
+			gameSocket.off("startedGame");
+			gameSocket.off("updateGame");
+			gameSocket.off("endGame");
+			gameSocket.off("playerNo");
+			gameSocket.emit("leave");
+
 		}
 
   }, [gameSocket]);
